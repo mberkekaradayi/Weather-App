@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./style.css";
 
 function Weather() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
   const [isloading, setIsLoading] = useState(false);
+  const [bgColor, setBgColor] = useState("");
 
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=47d2c9a35c63b7400c4dbaeb61cb53c1&units=metric`;
 
@@ -15,6 +17,26 @@ function Weather() {
       const response = await axios.get(URL);
       setData(response.data);
       console.log(response.data); // to check what we have on object
+      if (response.data.weather) {
+        const weather = response.data.weather[0].main.toLowerCase();
+        if (weather == `clear`) {
+          setBgColor("bg-clear");
+        } else if (weather == "clouds") {
+          setBgColor("bg-clouds");
+        } else if (weather == "drizzle") {
+          setBgColor("bg-drizzle");
+        } else if (weather == "rain") {
+          setBgColor("bg-rain");
+        } else if (weather == "snow") {
+          setBgColor("bg-snow");
+        } else if (weather == "thunderstorm") {
+          setBgColor("bg-thunderstorm");
+        } else if (weather == "haze") {
+          setBgColor("bg-haze");
+        } else {
+          setBgColor("bg-normal");
+        }
+      }
     } catch (error) {
       setLocation("");
       // setData({});
@@ -31,9 +53,9 @@ function Weather() {
   }, []);
 
   return (
-    <div className="app">
+    <div className={`app ${bgColor}`}>
       <div className="title-wrapper">
-        <h1 className="title  font-black text-5xl text-stone-50 text-center">
+        <h1 className="title mt-2 font-black text-5xl text-stone-50 text-center">
           WeatherNow{" "}
         </h1>
       </div>
@@ -46,7 +68,7 @@ function Weather() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button className="bg-sunset text-white py-3 px-6 rounded-full shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-xl ml-3s">
+          <button className="bg-sunset hover:bg-sunset-dark text-white py-3 px-6 rounded-full shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-xl ml-3s">
             Find
           </button>
         </form>
@@ -118,7 +140,7 @@ function Weather() {
           className="footer fixed bottom-3 antialiased w-full text-center py-2 font-source-sans-pro font-helvetica font-sans text-white text-opacity-20 cursor-default text-s uppercase tracking-wider hover:text-white"
           href="https://mberkekaradayi.com/"
         >
-          &copy;MBK
+          &copy;Mehmet Berke Karadayi
         </a>
       </div>
     </div>
