@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./style.css";
+import Popup from "./popup";
 
 function Weather() {
   const [data, setData] = useState({});
@@ -138,19 +139,7 @@ function Weather() {
           )}
         </div>
 
-        {showPopup && (
-          <div className="popup">
-            <div className="popup-content">
-              <h2>Invalid Location</h2>
-              <button
-                style={{ width: "100px", padding: "10px", marginTop: "10px" }}
-                onClick={() => setShowPopup(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )}
+        {showPopup && <Popup setShowPopup={setShowPopup} />}
 
         <div className="flex items-center justify-center fixed bottom-0 w-full py-2 bg-transparent">
           <a
