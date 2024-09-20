@@ -71,6 +71,32 @@ h1 {
   color: #fff;
 }
 
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above other content */
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: for a backdrop effect */
+  width: 100vw;
+  height: 100vh;
+}
+
+.popup-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  width: 300px;
+  border-radius: 100px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .bg-clear:before {
   content: "";
   background: url("./images/clear.jpg") no-repeat center center/cover;
